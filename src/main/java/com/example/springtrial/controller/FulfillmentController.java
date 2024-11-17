@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @Tag(name = "Fulfillment")
 @RequiredArgsConstructor
@@ -35,6 +36,7 @@ public class FulfillmentController {
     @Operation(description = "Возвращает суммарную цену всех продуктов по fulfillment_center")
     @GetMapping("sum")
     public Integer getSumValByFulfillmentCenter(@RequestParam("fulfillment_center") String fulfillmentCenter) {
-        return fulfillmentService.getSumValByFulfillmentCenter(fulfillmentCenter);
+        Integer result = fulfillmentService.getSumValByFulfillmentCenter(fulfillmentCenter);
+        return Objects.equals(result, null) ? 0 : result;
     }
 }
