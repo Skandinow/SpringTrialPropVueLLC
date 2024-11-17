@@ -1,4 +1,4 @@
-FROM gradle:jdk17-alpine as build
+FROM gradle:jdk17-alpine AS build
 WORKDIR /src
 COPY --chown=gradle:gradle . /src
 RUN gradle build --no-daemon --stacktrace

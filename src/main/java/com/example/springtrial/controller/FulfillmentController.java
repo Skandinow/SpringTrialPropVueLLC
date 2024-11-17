@@ -3,6 +3,7 @@ package com.example.springtrial.controller;
 import com.example.springtrial.model.Product;
 import com.example.springtrial.model.Status;
 import com.example.springtrial.service.FulfillmentService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +20,19 @@ import java.util.List;
 public class FulfillmentController {
     final FulfillmentService fulfillmentService;
 
+    @Operation(description = "Фильтрует продукты по статусу")
     @GetMapping("/filter/status")
     public List<Product> filterByStatus(@RequestParam Status status) {
         return fulfillmentService.filterByStatus(status);
     }
 
+    @Operation(description = "Возвращает все продукты со статусом SELLABLE")
     @GetMapping("all/sellable")
     public List<Product> getAllSellable() {
         return fulfillmentService.getAllSellable();
     }
 
+    @Operation(description = "Возвращает суммарную цену всех продуктов по fulfillment_center")
     @GetMapping("sum")
     public Integer getSumValByFulfillmentCenter(@RequestParam("fulfillment_center") String fulfillmentCenter) {
         return fulfillmentService.getSumValByFulfillmentCenter(fulfillmentCenter);

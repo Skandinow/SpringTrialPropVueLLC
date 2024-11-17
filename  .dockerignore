@@ -1,0 +1,14 @@
+# Exclude build outputs
+build/
+out/
+
+# Exclude version control
+.git/
+.gitignore
+
+# Exclude IDE configuration files
+.idea/
+*.iml
+
+# Exclude other unnecessary files
+*.log
