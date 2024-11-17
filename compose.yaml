@@ -1,9 +1,27 @@
+version: '3.1'
+
+volumes:
+  pg_docker:
+
 services:
-  postgres:
-    image: 'postgres:latest'
+  postgres_db:
+    image: postgres
+    restart: always
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres_db
+    volumes:
+      - pg_docker:/var/lib/postgresql/data
     ports:
-      - '5432'
+      - "127.0.0.1:5433:5432"
+  app:
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres_db
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres_db:5432/postgres_db"
+      JAVA_OPTS: "-Xmx512m"
